@@ -11,6 +11,22 @@ const userConfig = {
   localeSubpaths: true,
 }
 
+const userConfigClientSide = {
+  ...userConfig,
+  backend: {
+    loadPath: '/static/translations/{{ns}}/{{lng}}.json',
+    addPath: '/static/translations/{{ns}}/{{lng}}.missing.json',
+  },
+}
+
+const userConfigServerSide = {
+  ...userConfig,
+  backend: {
+    loadPath: '/home/user/static/translations/{{ns}}/{{lng}}.json',
+    addPath: '/home/user/static/translations/{{ns}}/{{lng}}.missing.json',
+  },
+}
+
 const setUpTest = () => {
   const evalFunc = jest.spyOn(global, 'eval').mockImplementation(() => ({
     readdirSync: jest.fn().mockImplementation(() => ['common', 'file1', 'file2']),
@@ -33,7 +49,8 @@ const tearDownTest = (evalFunc, pwd) => {
 }
 
 export {
-  userConfig,
+  userConfigClientSide,
+  userConfigServerSide,
   setUpTest,
   tearDownTest,
 }
