@@ -1,6 +1,6 @@
 import isNode from 'detect-node'
 
-export const runningServerSide = isNode && !process.browser
+export const isServer = isNode && !process.browser
 
 const DEFAULT_LANGUAGE = 'en'
 const OTHER_LANGUAGES = []
@@ -39,7 +39,7 @@ const config = {
   errorStackTraceLimit: 0,
 }
 
-if (runningServerSide) {
+if (isServer) {
   const path = require('path')
 
   config.backend = {

@@ -1,4 +1,4 @@
-import defaultConfig, { runningServerSide } from './default-config'
+import defaultConfig, { isServer } from './default-config'
 
 export default (userConfig) => {
 
@@ -20,7 +20,7 @@ export default (userConfig) => {
 
   combinedConfig.whitelist = combinedConfig.allLanguages
 
-  if (runningServerSide) {
+  if (isServer) {
     const fs = eval("require('fs')")
     const path = require('path')
 
