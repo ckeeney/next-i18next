@@ -128,7 +128,7 @@ The main "gotcha" with locale subpaths is routing. We want to be able to route t
 
 With this link, we would expect someone whose language is set to French to automatically be directed to `/fr/some-page`.
 
-To do that, we must import `Link` from your `NextI18Next`, **not next/router**:
+To do that, we must import `Link` from your `NextI18Next` instance, **not next/router**:
 
 ```jsx
 import React from 'react'
@@ -136,15 +136,29 @@ import React from 'react'
 // This is our initialised `NextI18Next` instance
 import { Link } from '../i18n'
 
-class SomeLink extends React.Component {
-  render() {
-    return (
-      <Link href='/some-page'>
-        This will magically prepend locale subpaths
-      </Link>
-    )
-  }
-}
+const SomeLink = () => (
+  <Link href='/some-page'>
+    This will magically prepend locale subpaths
+  </Link>
+)
+```
+
+We can also navigate imperatively with locale subpaths by importing `Router` from your `NextI18Next` instance.
+The exported Router shares the same API as the native Next Router. The push, replace, and prefetch functions will automatically prepend locale subpaths.
+
+```jsx
+import React from 'react'
+
+// This is our initialised `NextI18Next` instance
+import { Router } from '../i18n'
+
+const SomeButton = () => (
+  <button
+    onClick={() => Router.push('/some-page')}
+  >
+    This will magically prepend locale subpaths
+  </button>
+)
 ```
 
 ## Custom Routing
@@ -152,12 +166,18 @@ class SomeLink extends React.Component {
 Custom routing can be achieved via the `app.render` method:
 
 ```jsx
+/* First, use middleware */
 server.use(nextI18NextMiddleware(nextI18next))
 
+/* Second, declare custom routes */
 server.get('/products/:id', (req, res) => {
   const { query, params } = req
+
   return app.render(req, res, '/product-page', { ...query, id: params.id })
 })
+
+/* Third, add catch-all GET for non-custom routes */
+server.get('*', (req, res) => handle(req, res))
 ```
 
 ## Options
@@ -190,8 +210,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/75311?v=4" width="100px;"/><br /><sub><b>Rob Capellini</b></sub>](https://github.com/capellini)<br />[💻](https://github.com/isaachinman/next-i18next/commits?author=capellini "Code") [⚠️](https://github.com/isaachinman/next-i18next/commits?author=capellini "Tests") | [<img src="https://avatars3.githubusercontent.com/u/608862?v=4" width="100px;"/><br /><sub><b>Alexander Kachkaev</b></sub>](https://en.kachkaev.ru)<br />[📢](#talk-kachkaev "Talks") [💬](#question-kachkaev "Answering Questions") [🤔](#ideas-kachkaev "Ideas, Planning, & Feedback") [💻](https://github.com/isaachinman/next-i18next/commits?author=kachkaev "Code") [⚠️](https://github.com/isaachinman/next-i18next/commits?author=kachkaev "Tests") | [<img src="https://avatars1.githubusercontent.com/u/33042011?v=4" width="100px;"/><br /><sub><b>Mathias Wøbbe</b></sub>](https://kandelborg.dk)<br />[💻](https://github.com/isaachinman/next-i18next/commits?author=MathiasKandelborg "Code") [🤔](#ideas-MathiasKandelborg "Ideas, Planning, & Feedback") [⚠️](https://github.com/isaachinman/next-i18next/commits?author=MathiasKandelborg "Tests") | [<img src="https://avatars3.githubusercontent.com/u/968014?v=4" width="100px;"/><br /><sub><b>Lucas Feliciano</b></sub>](http://lucasfeliciano.com)<br />[🤔](#ideas-lucasfeliciano "Ideas, Planning, & Feedback") [👀](#review-lucasfeliciano "Reviewed Pull Requests") |
-| :---: | :---: | :---: | :---: |
+<table cellspacing="0" cellpadding="1"><tr><td><a href="https://github.com/capellini"><img src="https://avatars3.githubusercontent.com/u/75311?v=4" width="100px;" height="100px;" alt="Rob Capellini"/><br /><sub><b>Rob Capellini</b></sub></a><br /><a href="https://github.com/isaachinman/next-i18next/commits?author=capellini" title="Code">💻</a> <a href="https://github.com/isaachinman/next-i18next/commits?author=capellini" title="Tests">⚠️</a></td><td><a href="https://en.kachkaev.ru"><img src="https://avatars3.githubusercontent.com/u/608862?v=4" width="100px;" height="100px;" alt="Alexander Kachkaev"/><br /><sub><b>Alexander Kachkaev</b></sub></a><br /><a href="#talk-kachkaev" title="Talks">📢</a> <a href="#question-kachkaev" title="Answering Questions">💬</a> <a href="#ideas-kachkaev" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/isaachinman/next-i18next/commits?author=kachkaev" title="Code">💻</a> <a href="https://github.com/isaachinman/next-i18next/commits?author=kachkaev" title="Tests">⚠️</a></td><td><a href="https://kandelborg.dk"><img src="https://avatars1.githubusercontent.com/u/33042011?v=4" width="100px;" height="100px;" alt="Mathias Wøbbe"/><br /><sub><b>Mathias Wøbbe</b></sub></a><br /><a href="https://github.com/isaachinman/next-i18next/commits?author=MathiasKandelborg" title="Code">💻</a> <a href="#ideas-MathiasKandelborg" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/isaachinman/next-i18next/commits?author=MathiasKandelborg" title="Tests">⚠️</a></td><td><a href="http://lucasfeliciano.com"><img src="https://avatars3.githubusercontent.com/u/968014?v=4" width="100px;" height="100px;" alt="Lucas Feliciano"/><br /><sub><b>Lucas Feliciano</b></sub></a><br /><a href="#ideas-lucasfeliciano" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-lucasfeliciano" title="Reviewed Pull Requests">👀</a></td><td><a href="http://www.fifteenprospects.com"><img src="https://avatars2.githubusercontent.com/u/6932550?v=4" width="100px;" height="100px;" alt="Ryan Leung"/><br /><sub><b>Ryan Leung</b></sub></a><br /><a href="https://github.com/isaachinman/next-i18next/commits?author=minocys" title="Code">💻</a></td></tr></table>
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

@@ -1,11 +1,12 @@
 {
   "name": "next-i18next",
-  "version": "0.30.0",
+  "version": "0.34.0",
   "repository": "git@github.com:isaachinman/next-i18next.git",
   "author": "Isaac Hinman <isaac@isaachinman.com>",
   "main": "dist/commonjs/index.js",
   "jsnext:main": "dist/es/index.js",
   "module": "dist/es/index.js",
+  "types": "./types.d.ts",
   "license": "MIT",
   "engines": {
     "node": ">=8"
@@ -28,10 +29,11 @@
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "build:cjs": "BABEL_ENV=cjs babel src --out-dir dist/commonjs",
     "build": "yarn clean && yarn build:cjs && yarn build:es",
+    "build:example": "cd examples/simple && yarn build",
     "prepublishOnly": "yarn build",
     "run-example": "yarn build && cd examples/simple && rm -rf node_modules && yarn && yarn dev",
     "run-example:prod": "yarn build && cd examples/simple && rm -rf node_modules && yarn && yarn build && yarn start",
-    "test": "NODE_ENV=test jest --silent",
+    "test": "yarn build:example && NODE_ENV=test jest --maxWorkers=1 --silent",
     "contributors:check": "all-contributors check",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
@@ -47,9 +49,12 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
+    "@types/next": "^8.0.1",
+    "@types/react": "^16.8.4",
+    "@types/react-dom": "^16.8.2",
     "all-contributors-cli": "^6.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.1.0",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "enzyme": "^3.8.0",
@@ -60,11 +65,11 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.1.4",
-    "jest": "^23.6.0",
-    "jest-puppeteer": "^3.7.0",
+    "jest": "^24.1.0",
+    "jest-puppeteer": "^4.0.0",
     "jsdom": "^13.1.0",
     "jsdom-global": "^3.0.2",
-    "next": "^7.0.2",
+    "next": "^8.0.0",
     "puppeteer": "^1.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.6.3"
@@ -80,11 +85,10 @@
     "path-match": "^1.2.4",
     "pretty-error": "^2.1.1",
     "prop-types": "^15.6.2",
-    "react-i18next": "^9.0.4",
+    "react-i18next": "9.0.10",
     "url": "^0.11.0"
   },
   "peerDependencies": {
-    "next": ">= 7.0.2",
     "react": ">= 16.3.0"
   }
 }
