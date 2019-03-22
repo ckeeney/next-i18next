@@ -3824,13 +3824,6 @@ hoist-non-react-statics@3.2.0, hoist-non-react-statics@^3.2.0:
   dependencies:
     react-is "^16.3.2"
 
-hoist-non-react-statics@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.2.1.tgz#c09c0555c84b38a7ede6912b61efddafd6e75e1e"
-  integrity sha512-TFsu3TV3YLY+zFTZDrN8L2DTFanObwmBLpWvJs1qfUuEQ5bTAdFcwfx2T/bsCXfM9QHSLvjfP+nihEl0yvozxw==
-  dependencies:
-    react-is "^16.3.2"
-
 homedir-polyfill@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/homedir-polyfill/-/homedir-polyfill-1.0.1.tgz#4c2bbc8a758998feebf5ed68580f76d46768b4bc"
@@ -6537,13 +6530,12 @@ react-error-overlay@4.0.0:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
   integrity sha512-FlsPxavEyMuR6TjVbSSywovXSEyOg6ZDj5+Z8nbsRl9EkOzAhEIcS+GLoQDC5fz/t9suhUXWmUrOBrgeUvrMxw==
 
-react-i18next@9.0.10:
-  version "9.0.10"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-9.0.10.tgz#ba596b98e8dd06dbb805cf720147459ad55a3ada"
-  integrity sha512-xpeCWNut7ylQLs3Qqyo7dT13kgZbML1CdftbdnswLCv0RbRT16bRP16ma59iLe1KHIbn92VJo0Q8LSKYoXVNvg==
+react-i18next@10.5.3:
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-10.5.3.tgz#96e0fdbd406d226b00d1be9712bc2ec9d93a6679"
+  integrity sha512-RW4oj15dHDNXv06XcAbXfwp3GTXOzjiNfztexS81NfiKnknKBq/XRBgHhX/ODu8jiFm3LFv82OHpyLKkZvBIcg==
   dependencies:
     "@babel/runtime" "^7.3.1"
-    hoist-non-react-statics "3.2.1"
     html-parse-stringify2 "2.0.1"
 
 react-is@16.6.3, react-is@^16.3.2, react-is@^16.6.1, react-is@^16.6.3:
