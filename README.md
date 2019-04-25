@@ -8,7 +8,7 @@
 
 ## What is this?
 
-`next-i18next` is a plugin for [Next.js](https://nextjs.org/) projects that allows you to get translations up and running quickly and easily, while fully supporting SSR, multiple namespaces with codesplitting, etc.
+`next-i18next` is a plugin for [Next.js](https://nextjs.org/) projects that allows you to get translations up and running quickly and easily, while fully supporting SSR, multiple [namespaces](https://www.i18next.com/principles/namespaces) with codesplitting, etc.
 
 While `next-i18next` uses [i18next](https://www.i18next.com/) and [react-i18next](https://github.com/i18next/react-i18next) under the hood, users of `next-i18next` simply need to include their translation content as JSON files and don't have to worry about much else.
 
@@ -90,6 +90,8 @@ export default withNamespaces('footer')(Footer)
 
 ### 4. Declaring namespace dependencies
 
+The `withNamespaces` HOC is responsible for passing the `t` function to your component. It enables all the translation functionality provided by `i18next`. Further, it asserts your component gets re-rendered on language change or changes to the translation catalog itself (loaded translations). More info can be found [here](https://react.i18next.com/legacy-v9/withnamespaces).
+
 By default, `next-i18next` will send _all your namespaces_ down to the client on each initial request. This can be an appropriate approach for smaller apps with less content, but a lot of apps will benefit from splitting namespaces based on route.
 
 To do that, you need to return a `namespacesRequired` array via `getInitialProps` on your page-level component. You can see this approach in [examples/simple/pages/index.js](./examples/simple/pages/index.js).
@@ -108,13 +110,26 @@ myapp.com/de/     ---> Homepage in German
 This functionality is not enabled by default, and must be passed as an option into the `NextI18Next` constructor:
 
 ```jsx
-new NextI18Next({ localeSubpaths: true })
+new NextI18Next({ localeSubpaths: 'foreign' })
 ```
 
 Now, all your page routes will be duplicated across all your non-default language subpaths. If our `static/locales` folder included `fr`, `de`, and `es` translation directories, we will automatically get:
 
 ```
 myapp.com
+myapp.com/fr/
+myapp.com/de/
+myapp.com/es/
+```
+
+If you also want to enable locale subpaths for the default locale, set `localeSubpaths` to `all`:
+```jsx
+new NextI18Next({ localeSubpaths: 'all' })
+```
+
+We'll now get:
+```
+myapp.com/en/
 myapp.com/fr/
 myapp.com/de/
 myapp.com/es/
@@ -191,7 +206,7 @@ server.get('*', (req, res) => handle(req, res))
 | `otherLanguages` (required) | `[]`  |
 | `localePath` | `'static/locales'`  |
 | `localeStructure` | `'{{lng}}/{{ns}}'`  |
-| `localeSubpaths` | `false`  |
+| `localeSubpaths` | `'none'`  |
 | `serverLanguageDetection` | `true`  |
 | `use` (for plugins) | `[]`  |
 | `customDetectors` | `[]`  |
@@ -200,7 +215,7 @@ _This table contains options which are specific to next-i18next. All other [i18n
 
 ## Notes
 
-- [`next export` will result in a _clientside only_ React application.](https://github.com/isaachinman/next-i18next/issues/10)
+- [`next export` will result in a _client-side only_ React application.](https://github.com/isaachinman/next-i18next/issues/10)
 - [We cannot support koa until a 1:1 replacement for `i18next-express-middleware` exists](https://github.com/isaachinman/next-i18next/issues/9).
 - [To add a `lang` attribute to your top-level html DOM node, you must create a `_document.js` file.](https://github.com/isaachinman/next-i18next/issues/20#issuecomment-443461652)
 

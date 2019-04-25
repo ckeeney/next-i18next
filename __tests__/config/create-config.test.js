@@ -3,6 +3,8 @@
 import {
   userConfigClientSide, userConfigServerSide, setUpTest, tearDownTest,
 } from './test-helpers'
+import { userConfig, setUpTest, tearDownTest } from './test-helpers'
+import { localeSubpathOptions } from '../../src/config/default-config'
 
 let mockIsNode
 jest.mock('detect-node', () => mockIsNode)
@@ -46,7 +48,7 @@ describe('create configuration in non-production environment', () => {
       expect(config.load).toEqual('currentOnly')
       expect(config.localePath).toEqual('static/locales')
       expect(config.localeStructure).toEqual('{{lng}}/{{ns}}')
-      expect(config.localeSubpaths).toEqual(false)
+      expect(config.localeSubpaths).toEqual(localeSubpathOptions.NONE)
       expect(config.use).toEqual([])
       expect(config.defaultNS).toEqual('common')
 
@@ -83,7 +85,7 @@ describe('create configuration in non-production environment', () => {
       expect(config.load).toEqual('currentOnly')
       expect(config.localePath).toEqual('static/translations')
       expect(config.localeStructure).toEqual('{{ns}}/{{lng}}')
-      expect(config.localeSubpaths).toEqual(true)
+      expect(config.localeSubpaths).toEqual(localeSubpathOptions.FOREIGN)
       expect(config.defaultNS).toEqual('universal')
       expect(config.browserLanguageDetection).toEqual(false)
       expect(config.preload).toEqual(['fr', 'it', 'de'])
@@ -105,7 +107,7 @@ describe('create configuration in non-production environment', () => {
       expect(config.load).toEqual('currentOnly')
       expect(config.localePath).toEqual('static/locales')
       expect(config.localeStructure).toEqual('{{lng}}/{{ns}}')
-      expect(config.localeSubpaths).toEqual(false)
+      expect(config.localeSubpaths).toEqual(localeSubpathOptions.NONE)
       expect(config.use).toEqual([])
       expect(config.defaultNS).toEqual('common')
 
@@ -138,7 +140,7 @@ describe('create configuration in non-production environment', () => {
       expect(config.load).toEqual('currentOnly')
       expect(config.localePath).toEqual('static/translations')
       expect(config.localeStructure).toEqual('{{ns}}/{{lng}}')
-      expect(config.localeSubpaths).toEqual(true)
+      expect(config.localeSubpaths).toEqual(localeSubpathOptions.FOREIGN)
       expect(config.defaultNS).toEqual('universal')
       expect(config.browserLanguageDetection).toEqual(false)
 

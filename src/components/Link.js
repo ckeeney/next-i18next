@@ -37,11 +37,11 @@ const removeWithNamespacesProps = (props) => {
 class Link extends React.Component {
   render() {
     const {
-      as, children, href, lng, nextI18NextConfig, ...props
+      as, children, href, lng, nextI18NextInternals, ...props
     } = this.props
 
-    if (localeSubpathRequired(nextI18NextConfig, lng)) {
-      const { config } = nextI18NextConfig
+    if (localeSubpathRequired(nextI18NextInternals, lng)) {
+      const { config } = nextI18NextInternals
       const { as: correctedAs, href: correctedHref } = lngPathCorrector(config, { as, href }, lng)
 
       return (
@@ -74,10 +74,10 @@ Link.propTypes = {
     PropTypes.string,
     PropTypes.object,
   ]).isRequired,
-  nextI18NextConfig: PropTypes.shape({
+  nextI18NextInternals: PropTypes.shape({
     config: PropTypes.shape({
       defaultLanguage: PropTypes.string.isRequired,
-      localeSubpaths: PropTypes.bool.isRequired,
+      localeSubpaths: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 }
